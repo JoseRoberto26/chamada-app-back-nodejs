@@ -12,7 +12,8 @@ routes.post('/chamada/criar', ChamadaController.criarChamada);
 routes.put('/chamada/encerrar', ChamadaController.encerrarChamada);
 routes.get('/chamada/allChamadas', ChamadaController.obterChamadas);
 
-routes.get('/presenca/allPresencas', PresencaController.obterPresencasDaChamada);
+routes.get('/presenca/lista', PresencaController.obterPresencasDaChamada);
+routes.get('/presenca/allPresencas', PresencaController.todasPresencas);
 routes.post('/presenca/criar', PresencaController.criarPresenca);
 routes.put('/presenca/alterar', PresencaController.alterarPresenca);
 

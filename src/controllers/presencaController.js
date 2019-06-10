@@ -3,20 +3,45 @@ const mongoose = require("mongoose");
 const Presenca = mongoose.model("Presenca");
 
 const controller = {
+    todasPresencas: (req, res) => {
+        Presenca.find({}, function(err, presencas){
+             if (err) {
+                 res.json({
+                   status: "error",
+                   message: err
+                 })
+               }
+               res.json({
+                 status: "sucesso",
+                 message: "Todas as presencas obtidas",
+                 data: presencas
+               })
+         });   
+     },
     obterPresencasDaChamada: (req, res) => {
-        const presencas = Presenca.find({
-            chamada: req.params.chamada
-        });
-    
-        return res.json(presencas);
+       Presenca.find({
+            chamada: req.body.chamada
+        }, function(err, presencas){
+            if (err) {
+                res.json({
+                  status: "error",
+                  message: err
+                })
+              }
+              res.json({
+                status: "sucesso",
+                message: "Todas as presencas da chamada obtidas",
+                data: presencas
+              })
+        });   
     },
     alterarPresenca: (req, res) => {
-        Presenca.findById(req.params.presenca_id, function(err, presenca){
+        Presenca.findById(req.query.presenca_id, function(err, presenca){
             if(err){
                 res.send(err);
             }
             presenca.presente = !presenca.presente;
-            chamada.save(function (err){
+            presenca.save(function (err){
                 if(err)
                     res.json(err);
                 res.json({
@@ -26,8 +51,12 @@ const controller = {
             })
         })
     },
-    criarPresenca: (req, res) => {
+    criarPresenca: async (req, res) => {
         try {
+            const checaPresenca = await Presenca.findOne({usuario: req.body.usuario});
+            if(checaPresenca != null){
+                res.status(500).send("Você já respondeu a essa chamada!");
+            }
             const novaPresenca = new Presenca(req.body);
             const result = novaPresenca.save();
             res.send(result);
