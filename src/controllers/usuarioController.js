@@ -5,7 +5,7 @@ const Usuario = mongoose.model("Usuario");
 
 const controller = {
   obterUsuarios: (req, res) => {
-    Usuario.find({}, function (err, usuarios) {
+    Usuario.find({isAluno: true}, function (err, usuarios) {
       if (err) {
         res.json({
           status: "error",
@@ -36,8 +36,8 @@ const controller = {
       res.status(500).send("Já existe usuário cadastrado");
     }
   },
-  logar: (req, res) => {
-    const usuario = Usuario.findOne({
+  logar: async (req, res) => {
+    const usuario = await Usuario.findOne({
       matricula: req.params.matricula,
       senha: req.params.senha
     });
