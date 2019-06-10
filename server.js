@@ -6,15 +6,15 @@ const mongoose = require('mongoose');
 const requireDir = require('require-dir');
 
 mongoose.connect('mongodb://localhost:27017/nodeapi', {useNewUrlParser: true});
-app.use(parser);
-
+app.use(parser.urlencoded({extended:false}));
+app.use(express.json({strict: true}));
 
 requireDir('./src/models');
 
-
 app.use('/api', require('./src/routes'));
-
 
 app.listen(port, () => {
     console.log("Listening at :3001...");
 });
+
+// -> agregação: database collections NÃO TEM REFERENCIAS(FOREIGN KEYS, CONSTRAINTS)
