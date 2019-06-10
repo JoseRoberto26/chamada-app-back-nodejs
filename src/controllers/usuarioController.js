@@ -38,10 +38,9 @@ const controller = {
   },
   logar: async (req, res) => {
     const usuario = await Usuario.findOne({
-      matricula: req.params.matricula,
-      senha: req.params.senha
+      matricula: req.query.matricula,
+      senha: req.query.senha
     });
-
     return res.json(usuario);
   }
 };

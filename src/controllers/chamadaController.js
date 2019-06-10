@@ -28,7 +28,7 @@ const controller = {
         })
     },
     encerrarChamada: (req, res) => {
-        Chamada.findById(req.params.chamada_id, function (err, chamada){
+        Chamada.findById(req.body.chamada_id, function (err, chamada){
             if(err){
                 res.send(err);
             }
