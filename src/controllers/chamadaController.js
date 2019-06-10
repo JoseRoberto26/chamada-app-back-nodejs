@@ -5,9 +5,9 @@ const Chamada = mongoose.model("Chamada");
 const controller = {
     criarChamada: (req, res) => {
         try {
-            const novaChamada = new Chamada(req.body);
-            const result = novaChamada.save();
-            res.send(result);
+            new Chamada(req.body).save().then(u => {
+                return res.send(u);
+              });
           } catch (error) {
             res.status(500).send(error);
           }
