@@ -7,6 +7,10 @@ const PresencaSchema = mongoose.Schema({
     chamada:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Chamada'
+    },
+    presente:{
+        type: Boolean,
+        required: true
     }
 });
 
