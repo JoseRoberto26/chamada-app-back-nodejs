@@ -20,7 +20,7 @@ const controller = {
      },
     obterPresencasDaChamada: (req, res) => {
        Presenca.find({
-            chamada: req.body.chamada
+            chamada: req.query.chamada
         }, function(err, presencas){
             if (err) {
                 res.json({
