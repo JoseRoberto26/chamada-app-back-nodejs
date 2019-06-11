@@ -41,7 +41,11 @@ const controller = {
       matricula: req.query.matricula,
       senha: req.query.senha
     });
-    return res.json(usuario);
+    if (usuario == null) {
+      res.status(500).send("Usuário não existe");
+    } else {
+      return res.json(usuario);
+    }
   }
 };
 
